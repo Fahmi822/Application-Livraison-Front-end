@@ -1,0 +1,21 @@
+<div class="list-livreurs-container">
+    <h2>Liste des Livreurs</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Email</th>
+          <th>Téléphone</th>
+          <th>Rôle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let livreur of livreurs">
+          <td>{{ livreur.nom }}</td>
+          <td>{{ livreur.email }}</td>
+          <td>{{ livreur.tel }}</td>
+          <td>{{ livreur.role }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

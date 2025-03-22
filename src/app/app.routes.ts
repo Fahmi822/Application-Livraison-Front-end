@@ -5,6 +5,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { ClientDashboardComponent } from './components/client-dashboard/client-dashboard.component';
 import { LivreurDashboardComponent } from './components/livreur-dashboard/livreur-dashboard.component';
+import { ListClientsComponent } from './components/admin/list-clients/list-clients.component';
+import { ListLivreursComponent } from './components/admin/list-livreurs/list-livreurs.component';
 import { AddLivreurComponent } from './components/admin/add-livreur/add-livreur.component';
 import { RoleGuard } from './guards/role.guard';
 
@@ -21,6 +23,14 @@ export const routes: Routes = [
       {
         path: 'add-livreur', // Chemin relatif au tableau de bord de l'admin
         component: AddLivreurComponent,
+      },
+      {
+        path: 'list-clients',
+        component: ListClientsComponent,
+      },
+      {
+        path: 'list-livreurs',
+        component: ListLivreursComponent,
       },
     ],
   },

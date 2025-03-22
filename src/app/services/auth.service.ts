@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Observable, tap } from 'rxjs';
+import { Observable,throwError} from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -32,15 +33,24 @@ export class AuthService {
     // Récupérer le token JWT depuis le localStorage
     const token = localStorage.getItem('token');
     if (!token) {
-      throw new Error('Token non trouvé');
+      return throwError(() => new Error('Token non trouvé'));
     }
-
+  
     // Ajouter le token dans l'en-tête de la requête
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
-
-    return this.http.post(`${this.apiUrl}/admin/register-livreur`, livreurData, { headers });
+  
+    // Envoyer la requête POST
+    return this.http.post(`${this.apiUrl}/admin/register-livreur`, livreurData, { headers }).pipe(
+      tap((response) => {
+        console.log('Livreur ajouté avec succès', response);
+      }),
+      catchError((error) => {
+        console.error('Erreur lors de l\'ajout du livreur', error);
+        return throwError(() => error);
+      })
+    );
   }
 
 

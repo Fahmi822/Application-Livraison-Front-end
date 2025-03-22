@@ -23,11 +23,20 @@ export class AddLivreurComponent {
       (response) => {
         console.log('Livreur ajouté avec succès', response);
         alert('Livreur ajouté avec succès !');
+        this.resetForm(); // Réinitialiser le formulaire après succès
       },
       (error) => {
         console.error('Erreur lors de l\'ajout du livreur', error);
-        alert('Erreur lors de l\'ajout du livreur');
+        alert(`Erreur : ${error.error.message || 'Une erreur s\'est produite'}`);
       }
     );
+  }
+  resetForm() {
+    this.livreurData = {
+      nom: '',
+      email: '',
+      tel: '',
+      mdp: '',
+    };
   }
 }
