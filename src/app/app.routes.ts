@@ -1,3 +1,39 @@
 import { Routes } from '@angular/router';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { ClientDashboardComponent } from './components/client-dashboard/client-dashboard.component';
+import { LivreurDashboardComponent } from './components/livreur-dashboard/livreur-dashboard.component';
+import { AddLivreurComponent } from './components/admin/add-livreur/add-livreur.component';
+import { RoleGuard } from './guards/role.guard';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+  { path: '', component: HomeComponent }, // Page d'accueil
+  { path: 'login', component: LoginComponent }, // Page de connexion
+  { path: 'register', component: RegisterComponent }, // Page d'inscription
+  {
+    path: 'admin-dashboard',
+    component: AdminDashboardComponent,
+    canActivate: [RoleGuard], // Appliquer le garde
+    data: { role: 'Admin' }, // Rôle requis
+    children: [
+      {
+        path: 'add-livreur', // Chemin relatif au tableau de bord de l'admin
+        component: AddLivreurComponent,
+      },
+    ],
+  },
+  {
+    path: 'client-dashboard',
+    component: ClientDashboardComponent,
+    canActivate: [RoleGuard], // Appliquer le garde
+    data: { role: 'Client' }, // Rôle requis
+  },
+  {
+    path: 'livreur-dashboard',
+    component: LivreurDashboardComponent,
+    canActivate: [RoleGuard], // Appliquer le garde
+    data: { role: 'Livreur' }, // Rôle requis
+  },
+];
